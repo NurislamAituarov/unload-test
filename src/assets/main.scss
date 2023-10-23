@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.2rem;
+}
+
+:root {
+  --color_success: green;
+  --color_danger: red;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.block {
+  padding: 15px;
+  border-radius: 3px;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 2px rgb(148, 148, 148);
+  margin-bottom: 20px;
+  h2 {
+    font-size: 18px;
+  }
+}
