@@ -17,20 +17,15 @@
       Размер занрузки: <span>{{ item.size }}</span>
     </p>
 
-    <div class="line" :class="status - `${item.status}`"></div>
+    <div class="line" :class="`status-${item.status}`"></div>
   </div>
 </template>
 
 
 <script setup>
 import { defineProps } from "vue";
+import { orderStringWithoutTag } from "@/lib/helpers";
 defineProps(["item"]);
-
-function orderStringWithoutTag(originalString) {
-  // Регулярное выражение для удаления указанной части и внутреннего контента
-  const regex = /: № <span class="text-bold">(.*?)<\/span>/;
-  return originalString.replace(regex, "");
-}
 </script>
 
 <style scoped lang="scss">
@@ -40,8 +35,11 @@ function orderStringWithoutTag(originalString) {
   position: relative;
   margin-bottom: 15px;
   font-size: 14px;
+  cursor: pointer;
+
   span {
     font-weight: bold;
+    font-size: 16px;
   }
 }
 
@@ -51,6 +49,12 @@ function orderStringWithoutTag(originalString) {
   left: 0;
   width: 10px;
   height: 100%;
+}
+
+.status-green {
   background-color: var(--color_success);
+}
+.status-red {
+  background-color: var(--color_danger);
 }
 </style>
