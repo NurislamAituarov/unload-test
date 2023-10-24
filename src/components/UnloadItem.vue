@@ -1,5 +1,5 @@
 <template>
-  <div class="block block-item">
+  <div class="block block-item" tabindex="0">
     <p>
       Задача выполнена: <span>{{ item.date }}</span>
     </p>
@@ -36,7 +36,11 @@ defineProps(["item"]);
   margin-bottom: 15px;
   font-size: 14px;
   cursor: pointer;
-
+  transition: all 0.3s;
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 3px rgb(148, 148, 148);
+  }
   span {
     font-weight: bold;
     font-size: 16px;

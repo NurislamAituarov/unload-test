@@ -3,34 +3,31 @@
     <div class="block-info">
       <div class="id">{{ unloadItem.id }}</div>
       <p>{{ orderStringWithoutTag(unloadItem.event) }}</p>
-      <div class="close" @click="$emit('close-unload-item')">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 30 30"
-          width="12px"
-          height="12px"
-          fill="white"
-        >
-          <path
-            d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z"
-          />
-        </svg>
-      </div>
+      <CloseBtn @click="$emit('close-unload-item')" />
     </div>
 
     <div class="wrapper-download">
-      <div class="clue">
-        Если после клика на ссылку загрузка не пошла, проверьте не блокирует ли
-        браузер скачивания архива
+      <div class="prompt">
+        <BulbIcon />
+        <span>
+          Если после клика на ссылку загрузка не пошла, проверьте не блокирует
+          ли браузер скачивания архива.
+        </span>
       </div>
       <div class="block-download">
         <p class="text-bold">Сылка для скачивания архива Выгрузки (.zip):</p>
+        <!-- Не понял как достать ссылку для загрузки zip -->
         <a
+          class="link"
           :href="`https://seenday.com/mL6OAHAEH1`"
           :download="`https://seenday.com/mL6OAHAEH1`"
           >{{ unloadItem.download_link }}</a
         >
-        <span class="copy">скопировать ссылку</span>
+        <span @click="copyLink" class="span-link">скопировать ссылку</span>
+      </div>
+
+      <div class="wrapper-close">
+        <CloseBtn @click="$emit('close-unload-item')" text="Закрыть" />
       </div>
     </div>
   </div>
@@ -38,10 +35,20 @@
 
 
 <script setup>
-import { orderStringWithoutTag } from "@/lib/helpers";
 import { defineEmits, defineProps } from "vue";
-defineProps(["unloadItem"]);
+import BulbIcon from "@/components/svg/BulbIcon.vue";
+import CloseBtn from "@/components/CloseBtn.vue";
+import { orderStringWithoutTag } from "@/lib/helpers";
+const props = defineProps(["unloadItem"]);
 defineEmits(["close-unload-item"]);
+
+function copyLink() {
+  let linkId = null;
+  const digits = props.unloadItem.download_link.match(/\d+/);
+  if (digits && digits[0]) linkId = digits[0];
+
+  navigator.clipboard.writeText(linkId);
+}
 </script>
 
 <style scoped lang="scss">
@@ -57,40 +64,97 @@ defineEmits(["close-unload-item"]);
 .block-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
   height: 40px;
   background-color: rgb(244 247 255);
 
   .id {
     padding: 10px 7px;
     color: white;
-    background-color: #6a0dad;
+    background-color: #615098;
   }
   .close {
-    padding: 10px 7px;
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: inherit;
-    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 .wrapper-download {
-  padding: 10px;
+  padding: 15px;
+  .close {
+    display: none;
+  }
 }
 .block-download {
-  a {
+  p {
+    font-size: 16px;
+  }
+  .link {
     margin-right: 20px;
     text-decoration: none;
+    color: #6a0dad;
   }
-  .copy {
+  .span-link {
     cursor: pointer;
     text-decoration: dashed;
     border-bottom: 1px dotted rgb(105, 105, 105);
+    transition: 0.5s;
+    &:hover {
+      color: rgb(50, 50, 50);
+    }
+    &:active {
+      color: rgb(105, 105, 105);
+    }
   }
 }
-.clue {
-  font-size: 12px;
+.prompt {
+  font-size: 10px;
+  background-color: rgb(244 247 255);
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  box-shadow: 0px 0px 1px rgb(148, 148, 148);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 25px;
+  svg {
+    min-width: 15px;
+  }
+  span {
+    line-height: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .block-info {
+    .close {
+      display: none;
+    }
+  }
+
+  .wrapper-close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .wrapper-download {
+    .close {
+      display: block;
+      margin-top: 10px;
+      width: max-content;
+      border-radius: 3px;
+      padding: 10px 25px;
+    }
+  }
+  .link {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .prompt {
+    gap: 20px;
+  }
 }
 </style>

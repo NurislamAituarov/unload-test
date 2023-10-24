@@ -1,11 +1,13 @@
+@import './mediaScreen.scss';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 :root {
-  --color_success: green;
-  --color_danger: red;
+  --color_success: #40ca40;
+  --color_danger: #d25c5c;
 }
 
 body {
@@ -29,7 +31,7 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0px 0px 1px rgb(148, 148, 148);
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   h2 {
     font-size: 18px;
   }

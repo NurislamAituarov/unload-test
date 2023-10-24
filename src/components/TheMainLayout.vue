@@ -1,7 +1,10 @@
 <template>
   <main class="main">
-    <TheLeftSidebar @open-onload-item="openUnloadItem" />
+    <UnloadBlockMain />
+
     <TheRightContent />
+
+    <TheLeftSidebar @open-onload-item="openUnloadItem" />
   </main>
 </template>
 
@@ -10,6 +13,7 @@ import { provide, ref } from "vue";
 import TheLeftSidebar from "./TheLeftSidebar.vue";
 import TheRightContent from "./TheRightContent.vue";
 import { useAPIFetch } from "@/api/methods";
+import UnloadBlockMain from "./UnloadBlockMain.vue";
 
 const unloadItem = ref();
 
@@ -21,10 +25,18 @@ const openUnloadItem = async (id) => {
 provide("unloadItem", unloadItem);
 </script>
 
-<style>
+<style lang="scss">
 .main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 35vw 1fr;
   gap: 15px;
   padding: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr;
+
+    padding: 10px;
+  }
 }
 </style>

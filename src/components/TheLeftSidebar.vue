@@ -1,12 +1,5 @@
 <template>
-  <div class="unload-container">
-    <div class="block block-main">
-      <h2 class="text-bold">Выгрузка</h2>
-      <p class="text-bold subtitle">Выполняет работу:</p>
-      <span> - Собирает фотографии из заказов пользователей. </span>
-      <span> - Выгружает по папкам</span>
-    </div>
-
+  <div class="left-sidebar">
     <UnloadBlock
       v-for="item of unloadItems"
       :key="item.id"
@@ -33,17 +26,14 @@ onMounted(async () => {
 
 
 <style scoped lang="scss">
-.block-main {
-  span {
-    display: block;
-  }
-}
-.subtitle {
-  font-size: 16px;
-}
-.unload-container {
-  width: 35vw;
+.left-sidebar {
+  min-width: 35vw;
   display: flex;
   flex-direction: column;
+}
+@media only screen and (max-width: 768px) {
+  .left-sidebar {
+    min-width: 100%;
+  }
 }
 </style>
