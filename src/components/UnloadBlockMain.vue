@@ -1,11 +1,23 @@
 <template>
   <div class="block block-main">
-    <h2 class="text-bold">Выгрузка</h2>
-    <p class="text-bold subtitle">Выполняет работу:</p>
-    <span> - Собирает фотографии из заказов пользователей. </span>
-    <span> - Выгружает по папкам</span>
+    <h2 class="text-bold">{{ title }}</h2>
+    <p class="text-bold subtitle">{{ subtitle }}:</p>
+    <span v-for="(list, ind) of actionLists" :key="list + ind">
+      - {{ list }}
+    </span>
   </div>
 </template>
+
+
+<script setup>
+import { defineProps } from "vue";
+
+defineProps({
+  title: { type: String, default: "" },
+  subtitle: { type: String, default: "" },
+  actionLists: { type: Array, default: () => [] },
+});
+</script>
 
 <style scoped lang="scss">
 .block-main {
