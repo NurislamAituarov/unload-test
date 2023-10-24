@@ -52,6 +52,8 @@ function copyLink() {
 </script>
 
 <style scoped lang="scss">
+@import "../assets/mediaScreen.scss";
+
 .block {
   width: 100%;
   border-radius: 3px;
@@ -67,7 +69,6 @@ function copyLink() {
   gap: 20px;
   height: 40px;
   background-color: rgb(244 247 255);
-
   .id {
     padding: 10px 7px;
     color: white;
@@ -77,12 +78,22 @@ function copyLink() {
     position: absolute;
     right: 0;
     top: 0;
+    @include respond-to(xslg) {
+      display: none;
+    }
   }
 }
 .wrapper-download {
   padding: 15px;
   .close {
     display: none;
+    @include respond-to(xslg) {
+      display: block;
+      margin-top: 10px;
+      width: max-content;
+      border-radius: 3px;
+      padding: 10px 25px;
+    }
   }
 }
 .block-download {
@@ -93,6 +104,9 @@ function copyLink() {
     margin-right: 20px;
     text-decoration: none;
     color: #6a0dad;
+    @include respond-to(xslg) {
+      display: block;
+    }
   }
   .span-link {
     cursor: pointer;
@@ -124,37 +138,16 @@ function copyLink() {
   span {
     line-height: 10px;
   }
+  @include respond-to(mobile) {
+    gap: 20px;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-  .block-info {
-    .close {
-      display: none;
-    }
-  }
-
   .wrapper-close {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-  }
-  .wrapper-download {
-    .close {
-      display: block;
-      margin-top: 10px;
-      width: max-content;
-      border-radius: 3px;
-      padding: 10px 25px;
-    }
-  }
-  .link {
-    display: block;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .prompt {
-    gap: 20px;
   }
 }
 </style>

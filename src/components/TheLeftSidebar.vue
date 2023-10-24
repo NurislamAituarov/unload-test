@@ -26,13 +26,13 @@ onMounted(async () => {
 
 
 <style scoped lang="scss">
+@import "../assets/mediaScreen.scss";
+
 .left-sidebar {
   min-width: 35vw;
   display: flex;
   flex-direction: column;
-}
-@media only screen and (max-width: 768px) {
-  .left-sidebar {
+  @include respond-to(xslg) {
     min-width: 100%;
   }
 }

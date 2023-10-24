@@ -1,6 +1,13 @@
 <template>
   <main class="main">
-    <UnloadBlockMain />
+    <UnloadBlockMain
+      :title="'Выгрузка'"
+      :subtitle="'Выполняет работу'"
+      :actionLists="[
+        'Собирает фотографии из заказов пользователей.',
+        'Выгружает по папкам',
+      ]"
+    />
 
     <TheRightContent />
 
@@ -26,17 +33,16 @@ provide("unloadItem", unloadItem);
 </script>
 
 <style lang="scss">
+@import "../assets/mediaScreen.scss";
+
 .main {
   display: grid;
   grid-template-columns: 35vw 1fr;
   gap: 15px;
   padding: 20px;
-}
-@media only screen and (max-width: 768px) {
-  .main {
+  @include respond-to(xslg) {
     grid-template-columns: 1fr;
-
     padding: 10px;
   }
 }
-</style>
+</style> 
